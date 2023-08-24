@@ -1,0 +1,80 @@
+#Импорт
+from news.models import *
+
+#Создать плользователя
+u1 = User.objects.create_user(username='NAME')
+
+#Сделать автора
+Author.objects.create(authorUser=u1)
+
+#Создание категории
+category.objects.create(name='CATEGORY_NAME')
+
+#Выбрать автора
+author = Author.objects.get(id=1)
+
+# Содать статью
+Post.objects.create(author=author, categoryType='CATEGORY_TYPE', title='TITLE', text='TEXT')
+
+# Получить заголовок статьи
+Post.objects.get(id=1).title
+
+# Получить текст статьи
+Post.objects.get(id=1).text
+
+# Добавить категорию
+Post.objects.get(id=1).postCategory.add(Category.objects.get(id=1))
+
+# Создание коментария
+Comment.objects.create(commentPost=Post.objects.get(id=1), commentUser=Author.objects.get(id=1).authorUser, text='anytext')
+
+# Сделать лайк комментарию
+Comment.objects.get(id=1).like()
+
+# Сделать дизлайк комментарию
+Comment.objects.get(id=1).dislike()
+
+# Сделать лайк статьи
+Post.objects.get(id=1).like()
+
+# Сделать дизлайк статьи
+Post.objects.get(id=1).dislike()
+
+# Посмотреть райтинг записи
+Comment.objects.get(id=1).rating
+
+# Обновить рейтинг автора
+a = Author.objects.get(id=1)
+a.update_rating
+
+# Посмотреть рейтинг автора
+a.ratingAuthor
+
+# Вывести username и рейтинг лучшего пользователя
+# (применяя сортировку и возвращая поля первого объекта).
+z = Author.objects.order_by('-ratingAuthor')[:1]
+
+for i in z:
+    i.ratingAuthor # рейтинг автора
+    i.authorUser.username # юзернайм автора
+
+# Вывести дату добавления, username автора, рейтинг, заголовок и превью лучшей статьи,
+# основываясь на лайках/дислайках к этой статье.
+x = Post.objects.order_by('-rating')[:1]
+
+for i in x:
+    i.dateCreation
+    i.author
+    i.rating
+    i.title
+    i.preview()
+
+# Вывести все комментарии (дата, пользователь, рейтинг, текст) к этой статье.
+comments = Comment.objects.all() # Вывести все комментарии
+comments
+
+q1 = comments.get(id=1) # получить первый комментарий
+q1.dateCreation # получить дату создания комментария
+q1.commentUser # вывести пользователя
+q1.rating # получить рейтинг комментария
+q1.commentPost.text # вывести текст комментария

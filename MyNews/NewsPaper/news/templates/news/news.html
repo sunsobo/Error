@@ -1,0 +1,36 @@
+{% extends 'default.html' %}
+
+
+{% block title %}
+News
+{% endblock title %}
+
+{% block content %}
+   <h1>Все Новости</h1>
+
+
+   <hr>
+   {% if news %}
+       <table>
+           <tr>
+               <td>Дата публикации</td>
+               <td>Автор</td>
+               <td>Заголовок</td>
+               <td>Содержание</td>
+           </tr>
+
+           {% for x in news %}
+           <tr>
+               <td>{{ x.date }}</td>
+               <td>{{ x.post_author }}</td>
+               <td>{{ x.post_title }}</td>
+               <td>{{ x.post_text }}</td>
+           </tr>
+           {% endfor %}
+
+       </table>
+   {% else %}
+       <h2>Новостей нет!</h2>
+   {% endif %}
+
+{% endblock content %}
