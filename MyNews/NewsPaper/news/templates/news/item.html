@@ -1,3 +1,15 @@
 {% extends 'default.html' %}
+{% load censor_filter %}
 
+{% block title %}
+Новость
+{% endblock title %}
 
+{% block content %}
+<hr>
+<h3>{{ item.title|censor }}</h3>
+<hr>
+<p>{{ item.text }}</p>
+<hr>
+<a href="http://127.0.0.1:8000/news/">Назад к новостям</a>
+{% endblock content %}
