@@ -1,0 +1,30 @@
+{% extends 'flatpages/default.html' %}
+{% load custom_filters %}
+{% load custom_tags %}
+
+{% block title %}
+Category list
+{% endblock title %}
+
+{% block content %}
+<!--<h1 class="text-center">Новости <span class="text-muted fs-6 fw-normal">Всего: {{ page_obj.paginator.count }} </span></h1>-->
+<!--    {% if is_not_subscriber %}-->
+<!--        <p class="text-center"><a href="{}" class="btn btn-secondary btn-sm">Подписаться</a></p>-->
+<!--    {% endif %}-->
+<hr>
+
+<ul class="list-group list-groupflush">
+    {% for create_post in category_news_list  %}
+    <li class="list-group-item">
+        <small class="fw-bold">{{ newpost.date | date:'d M Y' }}</small>
+        <a href="{% url 'post_details' create_post.id %}">{{ post.title }}</a>
+        <small class="text-muted">(атвор: {{ post.author }})</small><br>
+        <small class="fw-bold">категории:
+            {% for category in post.category.all %}
+                <a href="{% url 'category_list' category.id %}">{{ category }}</a>
+            {% endfor %}
+        </small>
+        <p>{{ post.text | truncatechars:210 }}</p>
+    </li>
+</ul>
+{% endblock content %}
