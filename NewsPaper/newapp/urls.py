@@ -8,7 +8,7 @@ urlpatterns = [
 
     path('', PostList.as_view()),
     path('<int:pk>/', PostDetail.as_view(), name='post_detail'),
-    path('search', PostSearch.as_view(), name='post_list'),
+    path('search/', PostSearch.as_view(), name='post_list'),
 
     path('create/', PostCreate.as_view(), name='post_create'),
     path('<int:pk>/edit/', PostEdit.as_view(), name='post_edit'),
@@ -18,5 +18,5 @@ urlpatterns = [
     path('articles/<int:pk>/edit/', ArticleEdit.as_view(), name='article_edit'),
     path('articles/<int:pk>/delete/', ArticleDelete.as_view(), name='article_delete'),
 
-    path('categories/<int:pk>', CategoryListView.as_view(), name='category_list'),
+    path('categories/<int:pk>/', CategoryListView.as_view(), name='category_list'),
 ]

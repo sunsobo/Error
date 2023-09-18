@@ -16,15 +16,17 @@ Category list
 <ul class="list-group list-groupflush">
     {% for create_post in category_news_list  %}
     <li class="list-group-item">
-        <small class="fw-bold">{{ newpost.date | date:'d M Y' }}</small>
-        <a href="{% url 'post_details' create_post.id %}">{{ post.title }}</a>
-        <small class="text-muted">(атвор: {{ post.author }})</small><br>
+        <small class="fw-bold">{{ create_post.dateCreation | date:'d M Y' }}</small>
+        <a href="{% url 'post_details' create_post.id %}">{{ create_post.title }}</a>
+        <small class="text-muted">(атвор: {{ create_post.author }})</small><br>
         <small class="fw-bold">категории:
-            {% for category in post.category.all %}
+            {% for category in create_post.category.all %}
                 <a href="{% url 'category_list' category.id %}">{{ category }}</a>
             {% endfor %}
         </small>
-        <p>{{ post.text | truncatechars:210 }}</p>
+        <p>{{ create_post.text | truncatechars:210 }}</p>
     </li>
+    {% endfor %}
 </ul>
+
 {% endblock content %}
