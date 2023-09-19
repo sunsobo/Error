@@ -99,3 +99,6 @@ class Comment(models.Model):
         self.save()
 
 
+# class Subscribers(models.Model):
+#     user = ForeignKey()
+#     category = ForeignKey()
