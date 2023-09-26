@@ -1,14 +1,12 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render
 from django.http import HttpResponse
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import FormView, CreateView, DeleteView, UpdateView
-from django.shortcuts import get_object_or_404
-
 from .filters import PostFilter
 from .forms import PostForm
 from .models import *
+from django.shortcuts import render, get_object_or_404
 
 class PostList(ListView):
     model = Post
@@ -108,3 +106,34 @@ class CategoryListView(ListView):
          context['is_not_subscriber'] = self.request.user not in self.category.subscribers.all()
          context['category'] = self.category
          return context
+
+
+from .models import Subscriber
+
+
+# BEGIN subscriptions
+def subscriptions(request, category_id):
+    category = get_object_or_404(PostCategory, id=category_id)
+
+    user = request.user
+
+    subscriber_list = Subscriber.objects.filter(
+    user = user,
+    category = category,
+    )
+    # отписка
+    if subscriber_list:
+        subscriber_list.delete()
+
+        message_text = 'Вы успешно отписались'
+    # подиска
+    else:
+        subscriber = Subscriber()
+        subscriber.user = user
+        subscriber.category = category
+        subscriber.save()
+
+        message_text = 'Подписка оформлена'
+
+    return render(request, 'newapp/sub.html', {'message_text':message_text,})
+# END subscriptions

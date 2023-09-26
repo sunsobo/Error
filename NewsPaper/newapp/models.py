@@ -99,6 +99,22 @@ class Comment(models.Model):
         self.save()
 
 
-# class Subscribers(models.Model):
-#     user = ForeignKey()
-#     category = ForeignKey()
+# BEGIN Subscriber
+class Subscriber(models.Model):
+    user = models.ForeignKey(
+        User,
+        verbose_name='Пользователь',
+        on_delete=models.CASCADE,
+    )
+    category = models.ForeignKey(
+        PostCategory,
+        verbose_name='Категория',
+        on_delete=models.CASCADE,
+    )
+
+    create = models.DateTimeField(
+        'Дата создания',
+        auto_now=True,
+    )
+# END Subscriber
+

@@ -19,9 +19,9 @@ Category list
         <small class="fw-bold">{{ create_post.dateCreation | date:'d M Y' }}</small>
         <a href="{% url 'post_details' create_post.id %}">{{ create_post.title }}</a>
         <small class="text-muted">(атвор: {{ create_post.author }})</small><br>
-        <small class="fw-bold">категории:
             {% for category in create_post.category.all %}
                 <a href="{% url 'category_list' category.id %}">{{ category }}</a>
+                <a href="{% url 'subscriptions' category.id %}">Подписаться</a>
             {% endfor %}
         </small>
         <p>{{ create_post.text | truncatechars:210 }}</p>
